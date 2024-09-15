@@ -6,7 +6,7 @@ services:
     environment:
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: nomames
+      POSTGRES_PASSWORD: 12345
     ports:
       - "5432:5432" # Porta padrão do PostgreSQL
     networks:
@@ -15,12 +15,13 @@ services:
   my_application:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: DockerFile
     ports:
-      - "5192:80" # Mapeia a porta 5000 do host para a 80 do container
+      - "5193:80" # Mapeia a porta 5000 do host para a 80 do container
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__MotoContext=Host=my_postgres.motonetwork;Port=5432;Database=postgres;Username=postgres;Password=nomames
+      - DOTNET_SDK_VERSION=8.0
     depends_on:
       - my_postgres
     networks:
