@@ -1,0 +1,17 @@
+C:\ProjetoC#\MotoApi\bin\Release\net8.0\publish\MotoApi.exe
+C:\ProjetoC#\MotoApi\bin\Release\net8.0\publish\appsettings.Development.json
+C:\ProjetoC#\MotoApi\bin\Release\net8.0\publish\appsettings.json
+C:\ProjetoC#\MotoApi\bin\Release\net8.0\publish\MotoApi.dll
+C:\ProjetoC#\MotoApi\bin\Release\net8.0\publish\MotoApi.deps.json
+C:\ProjetoC#\MotoApi\bin\Release\net8.0\publish\MotoApi.runtimeconfig.json
+C:\ProjetoC#\MotoApi\bin\Release\net8.0\publish\MotoApi.pdb
+C:\ProjetoC#\MotoApi\bin\Release\net8.0\publish\Microsoft.AspNetCore.OpenApi.dll
+C:\ProjetoC#\MotoApi\bin\Release\net8.0\publish\Microsoft.EntityFrameworkCore.dll
+C:\ProjetoC#\MotoApi\bin\Release\net8.0\publish\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\ProjetoC#\MotoApi\bin\Release\net8.0\publish\Microsoft.EntityFrameworkCore.Relational.dll
+C:\ProjetoC#\MotoApi\bin\Release\net8.0\publish\Microsoft.OpenApi.dll
+C:\ProjetoC#\MotoApi\bin\Release\net8.0\publish\Npgsql.dll
+C:\ProjetoC#\MotoApi\bin\Release\net8.0\publish\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\ProjetoC#\MotoApi\bin\Release\net8.0\publish\Swashbuckle.AspNetCore.Swagger.dll
+C:\ProjetoC#\MotoApi\bin\Release\net8.0\publish\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\ProjetoC#\MotoApi\bin\Release\net8.0\publish\Swashbuckle.AspNetCore.SwaggerUI.dll
