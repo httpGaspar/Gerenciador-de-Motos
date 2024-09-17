@@ -6,6 +6,6 @@
     "\\MotoApi\\Data",
     "\\MotoApi\\Models"
   ],
-  "SelectedNode": "\\MotoApi\\appsettings.json",
+  "SelectedNode": "\\MotoApi\\Controllers\\MotosControllers.cs",
   "PreviewInSolutionExplorer": false
 }

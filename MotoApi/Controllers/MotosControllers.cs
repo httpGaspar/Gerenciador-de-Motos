@@ -7,8 +7,8 @@ using MotoApi.Models;
 
 namespace MotoApi.Controllers //define onde o controller está
 {
-    [ApiController] //marca a classe como controller de API
     [Route("api/[controller]")] // define a rota da API (api/Mmtos)
+    [ApiController] //marca a classe como controller de API
     public class MotosController : ControllerBase{ //classe de controller
         private readonly MotoContext _context; //dependência para acessar as motos no banco
 
@@ -22,68 +22,71 @@ namespace MotoApi.Controllers //define onde o controller está
         [HttpPost] //metodo POST
         public async Task<IActionResult> CreateMoto([FromBody] Moto moto) //recebe uma nova moto
         {
-            //verifica se a moto já está cadastrada e retorna um erro se sim
-            if (_context.Motos.Any(m => m.Placa == moto.Placa))
-            {
-                return BadRequest("Placa já cadastrada.");
-            }
+           if (!ModelState.IsValid) // Verifica se o modelo recebido é válido
+           {
+            return BadRequest(ModelState); //retorna um erro caso o modelo seja invalido
+           }
             
-            moto.Id = Guid.NewGuid(); ////atribui um ID único a moto
-            _context.Motos.Add(moto); //adiciona a nova moto no banco
-            await _context.SaveChangesAsync(); //salva a alteração 
+           _context.Motos.Add(moto); //adiciona a moto cadastrada ao banco
+           await _context.SaveChangesAsync(); //salva as alterações
 
-            return Ok(moto); //retorna 200 OK
+            return CreatedAtAction(nameof(GetAllMotos), new { }, moto); //retorna 201
+        }
+        
+
+        [HttpGet] //metodo get geral
+        public async Task<ActionResult<IEnumerable<Moto>>> GetAllMotos()
+        {
+            return await _context.Motos.ToListAsync(); //retorna a lista das motos
         }
 
-        [HttpGet] //metodo GET (buscar)
-        public async Task<IActionResult> GetMotos([FromQuery] string placa) //recebe o parametro de consulta e filtra por placa
-        {
-            var query = _context.Motos.AsQueryable(); //cria uma consulta no banco de dados
 
-            //verifica se o parametro da placa foi informado
-            if (!string.IsNullOrEmpty(placa))
+        [HttpGet("{placa}")] //metodo get que filtra pela placa
+        public async Task<ActionResult<Moto>> GetMotoByPlaca(string placa)
+        {
+            //busca uma moto que tenha a placa expecificada
+            var moto = await _context.Motos
+                .Where(m => m.Placa == placa)
+                .FirstOrDefaultAsync();
+
+            if (moto == null)
             {
-                query = query.Where(m => m.Placa == placa); //filtra as motos pela placa
+                return NotFound(); //retorna um erro caso a moto não seja encontradd
             }
 
-            return Ok(await query.ToListAsync()); //retorna a lista das motos 200 OK
+            return moto; //retorna a moto encontrada
         }
 
-        [HttpPut("{id}")] //metodo Put (atualizar) o id tem que ser passado via URL
-        public async Task<IActionResult> UpdateMoto(Guid id, [FromBody] string novaPlaca) //recebe o id da moto e a nova placa na requisição
-        {
-            var moto = await _context.Motos.FindAsync(id); //busca a moto pelo id
-            if (moto == null) return NotFound();
 
-             // Verifica se a nova placa já está cadastrada
-            if (_context.Motos.Any(m => m.Placa == novaPlaca))
+        [HttpPut("{id}")] //metoo put para atualizar os dados da moto
+        public async Task<ActionResult<Moto>> UpdateMoto(Guid id, Moto moto)
+        {
+            //verifica se o id passado na url é o mesmo da moto
+            if (id != moto.Id)
             {
-                return BadRequest("Placa já cadastrada.");
+                return BadRequest(); //erro 400 
             }
 
-            moto.Placa = novaPlaca; //atualiza a placa da moto
-            await _context.SaveChangesAsync(); //salva a alteração
+            _context.Entry(moto).State = EntityState.Modified; //marca o estado da moto como modificado
+            await _context.SaveChangesAsync(); //salva as alterações
 
-            return NoContent(); //avisa que a operação foi bem sucedida 204 no content
+            return Ok(moto); //retorna 200
         }
 
-       [HttpDelete("{id}")] // Método de deletar
-        public async Task<IActionResult> DeleteMoto(Guid id) // recebe o id da moto
-        {
-            var moto = await _context.Motos.FindAsync(id); // busca a moto pelo id
-            if (moto == null) return NotFound();
 
-            // Verifica se a moto tem locações
-            if (moto.TemLocacao) // pode ser substituído por um relacionamento de locações
+        [HttpDelete("{id}")] //metodo para deletar 
+        public async Task<ActionResult<Moto>> DeleteMoto(Guid id)
+        {
+            var moto = await _context.Motos.FindAsync(id); //busca a moto pelo Id
+            if (moto == null) //caso não encontre a moto retorna um erro 404
             {
-                return BadRequest("Não é possível remover a moto, pois ela possui registro de locação.");
+                return NotFound();
             }
 
-            _context.Motos.Remove(moto); // remove a moto
-            await _context.SaveChangesAsync(); // salva as alterações
+            _context.Motos.Remove(moto); //remove a moto do banco
+            await _context.SaveChangesAsync(); //salva as alterações
 
-            return NoContent(); // retorna sucesso 204 no content
+            return NoContent(); //retorna 204 (operação bem sucedida)
         }
-
     }
 }

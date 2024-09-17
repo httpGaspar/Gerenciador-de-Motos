@@ -4,7 +4,7 @@ services:
   my_postgres:
     image: postgres:13
     environment:
-      POSTGRES_DB: postgres
+      POSTGRES_DB: my_postgree
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 12345
     ports:
@@ -17,13 +17,13 @@ services:
       context: .
       dockerfile: DockerFile
     ports:
-      - "5193:80" # Mapeia a porta 5000 do host para a 80 do container
+      - "5432:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__MotoContext=Host=my_postgres.motonetwork;Port=5432;Database=postgres;Username=postgres;Password=nomames
+      - ConnectionStrings__MotoContext=Host=my_postgree;Port=5432;Database=postgres;Username=postgres;Password=12345
       - DOTNET_SDK_VERSION=8.0
     depends_on:
-      - my_postgres
+      - my_postgree
     networks:
       - motonetwork
 
