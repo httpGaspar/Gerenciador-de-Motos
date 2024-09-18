@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   db:
-    container_name: my_conteinner
+    container_name: my_containner
     image: postgres
     environment:
       POSTGRES_USER: postgres
@@ -18,4 +18,5 @@ services:
     ports:
       - "5192:5192"
     depends_on:
-      - db
+      db:
+        condition: service_started
