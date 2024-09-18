@@ -36,3 +36,4 @@ C:\ProjetoC#\MotoApi\obj\Debug\net8.0\refint\MotoApi.dll
 C:\ProjetoC#\MotoApi\obj\Debug\net8.0\MotoApi.pdb
 C:\ProjetoC#\MotoApi\obj\Debug\net8.0\MotoApi.genruntimeconfig.cache
 C:\ProjetoC#\MotoApi\obj\Debug\net8.0\ref\MotoApi.dll
+C:\ProjetoC#\MotoApi\obj\Debug\net8.0\MotoApi.sourcelink.json
