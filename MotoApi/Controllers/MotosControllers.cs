@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Mvc; //importa funcionalidades para criar controladores e ações
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore; //biblioteca de framework para interagir com o banco de dados
 
-//referenciam o contexto do banco de dados (motocontext e moto)
+//referenciam os arquivos de contexto do banco de dados (motocontext e moto)
 using MotoApi.Data; 
 using MotoApi.Models;
 
@@ -12,7 +12,7 @@ namespace MotoApi.Controllers //define onde o controller está
     public class MotosController : ControllerBase{ //classe de controller
         private readonly MotoContext _context; //dependência para acessar as motos no banco
 
-        // injeta o contexto de banco de dados na classe do controlador via injeção de dependência.
+        // coloca o contexto de banco de dados na classe do controlador
         // permite a manipulação das motos no banco de dados.
         public MotosController(MotoContext context) 
         {
